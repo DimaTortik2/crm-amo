@@ -1,0 +1,34 @@
+.waves-parallax > use {
+	animation-name: waves;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+.wave1 {
+	animation-duration: var(--speed1);
+	fill: var(--color1);
+	animation-delay: -80s;
+}
+
+.wave2 {
+	animation-duration: var(--speed2);
+	fill: var(--color2);
+	animation-delay: -174s;
+	opacity: 0.8;
+}
+
+.wave3 {
+	animation-duration: var(--speed3);
+	fill: var(--color3);
+	animation-delay: -210s;
+	opacity: 0.6;
+}
+
+@keyframes waves {
+	0% {
+		transform: translate3d(-90px, 0, 0);
+	}
+	100% {
+		transform: translate3d(85px, 0, 0);
+	}
+}

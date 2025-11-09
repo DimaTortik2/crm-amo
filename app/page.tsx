@@ -1,65 +1,149 @@
-import Image from "next/image";
+'use client';
+
+import { Button } from '@/components/ui/button';
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import Bg from '@/components/ui/bg/bg';
+
+const formSchema = z.object({
+	name: z
+		.string()
+		.refine(val => val.length === 0 || val.length > 2, {
+			message: 'Так мало?',
+		})
+		.refine(val => val.length <= 30, {
+			message: 'Разогнался',
+		})
+		.optional(),
+	phone_number: z
+		.string()
+		.min(1, { message: 'Нада' })
+		.refine(isValidPhoneNumber, { message: 'Не верю' }),
+	email: z
+		.string()
+		.max(30, { message: 'Разогнался' })
+		.email('Не похоже на мыло')
+		.or(z.literal(''))
+		.optional(),
+	company: z
+		.string()
+		.min(2, {
+			message: 'Чего так мало букав?',
+		})
+		.max(40, { message: 'Перестарался...' }),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+	const form = useForm<FormValues>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			name: '',
+			company: '',
+			email: '',
+			phone_number: '+375',
+		},
+	});
+
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		const filteredValues: Partial<typeof values> = {};
+
+		// Получаем массив ключей и утверждаем их тип
+		const keys = Object.keys(values) as Array<keyof typeof values>;
+
+		for (const key of keys) {
+			const value = values[key];
+			if (value !== '') {
+				filteredValues[key] = value;
+			}
+		}
+
+		console.log(filteredValues);
+	}
+
+	const fileldsData: {
+		description?: string;
+		label: string;
+		placeHolder?: string;
+		value: keyof FormValues;
+	}[] = [
+		{
+			label: 'Название компании',
+			value: 'company',
+			placeHolder: 'Компания',
+		},
+
+		{
+			label: 'Телефон',
+			value: 'phone_number',
+			placeHolder: '+375 ',
+		},
+		{
+			label: 'ФИО',
+			value: 'name',
+			placeHolder: 'Стасик',
+			description: 'Необязательно',
+		},
+		{
+			label: 'Почта',
+			value: 'email',
+			placeHolder: 'Почта',
+			description: 'Необязательно',
+		},
+	];
+
+	return (
+		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative'>
+			<Bg
+				className='absolute bottom-0 left-0'
+				colors={['#4B0082', '#8A63D2', '#FFD700']}
+				speeds={[75, 150, 300]}
+			/>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className='space-y-8 bg-[#0a0a0ac9] p-10 backdrop-blur-lg rounded-3xl w-[95%] max-w-[400px] absolute z-1 border-2 border-[#e8e8e820]'
+				>
+					<h1 className='text-xl'>Создание user'a в CRM</h1>
+
+					{fileldsData.map(data => (
+						<FormField
+							key={data.value}
+							control={form.control}
+							name={data.value}
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>{data.label}</FormLabel>
+									<FormControl>
+										<Input placeholder={data.placeHolder || ''} {...field} />
+									</FormControl>
+									{data.description && (
+										<FormDescription>{data.description}</FormDescription>
+									)}
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					))}
+
+					<Button className='w-full' type='submit'>
+						ОК
+					</Button>
+				</form>
+			</Form>
+		</div>
+	);
 }
