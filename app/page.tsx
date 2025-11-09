@@ -61,7 +61,6 @@ export default function Home() {
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const filteredValues: Partial<typeof values> = {};
 
-		// Получаем массив ключей и утверждаем их тип
 		const keys = Object.keys(values) as Array<keyof typeof values>;
 
 		for (const key of keys) {
