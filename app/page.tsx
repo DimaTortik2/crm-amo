@@ -14,38 +14,42 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { isValidPhoneNumber } from 'libphonenumber-js';
 import Bg from '@/components/ui/bg/bg';
+import { useCreateContact } from './api/queries';
+import { FormValues } from './model/interface';
+import { formSchema } from './model/schema';
+import { BarLoader } from 'react-spinners';
 
-const formSchema = z.object({
-	name: z
-		.string()
-		.refine(val => val.length === 0 || val.length > 2, {
-			message: 'Так мало?',
-		})
-		.refine(val => val.length <= 30, {
-			message: 'Разогнался',
-		})
-		.optional(),
-	phone_number: z
-		.string()
-		.min(1, { message: 'Нада' })
-		.refine(isValidPhoneNumber, { message: 'Не верю' }),
-	email: z
-		.string()
-		.max(30, { message: 'Разогнался' })
-		.email('Не похоже на мыло')
-		.or(z.literal(''))
-		.optional(),
-	company: z
-		.string()
-		.min(2, {
-			message: 'Чего так мало букав?',
-		})
-		.max(40, { message: 'Перестарался...' }),
-});
+const fileldsData: {
+	description?: string;
+	label: string;
+	placeHolder?: string;
+	value: keyof FormValues;
+}[] = [
+	{
+		label: 'Название компании',
+		value: 'company',
+		placeHolder: 'Компания',
+	},
 
-type FormValues = z.infer<typeof formSchema>;
+	{
+		label: 'Телефон',
+		value: 'phone_number',
+		placeHolder: '+375 ',
+	},
+	{
+		label: 'ФИО',
+		value: 'name',
+		placeHolder: 'Стасик',
+		description: 'Необязательно',
+	},
+	{
+		label: 'Почта',
+		value: 'email',
+		placeHolder: 'Почта',
+		description: 'Необязательно',
+	},
+];
 
 export default function Home() {
 	const form = useForm<FormValues>({
@@ -57,6 +61,8 @@ export default function Home() {
 			phone_number: '+375',
 		},
 	});
+
+	const { createContact, isCreateContactPending } = useCreateContact();
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const filteredValues: Partial<typeof values> = {};
@@ -70,39 +76,8 @@ export default function Home() {
 			}
 		}
 
-		console.log(filteredValues);
+		createContact(filteredValues);
 	}
-
-	const fileldsData: {
-		description?: string;
-		label: string;
-		placeHolder?: string;
-		value: keyof FormValues;
-	}[] = [
-		{
-			label: 'Название компании',
-			value: 'company',
-			placeHolder: 'Компания',
-		},
-
-		{
-			label: 'Телефон',
-			value: 'phone_number',
-			placeHolder: '+375 ',
-		},
-		{
-			label: 'ФИО',
-			value: 'name',
-			placeHolder: 'Стасик',
-			description: 'Необязательно',
-		},
-		{
-			label: 'Почта',
-			value: 'email',
-			placeHolder: 'Почта',
-			description: 'Необязательно',
-		},
-	];
 
 	return (
 		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative'>
@@ -116,7 +91,7 @@ export default function Home() {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className='space-y-8 bg-[#0a0a0ac9] p-10 backdrop-blur-lg rounded-3xl w-[95%] max-w-[400px] absolute z-1 border-2 border-[#e8e8e820]'
 				>
-					<h1 className='text-xl'>Создание user'a в CRM</h1>
+					<h1 className='text-xl'>Добавление контакта :]</h1>
 
 					{fileldsData.map(data => (
 						<FormField
@@ -138,8 +113,19 @@ export default function Home() {
 						/>
 					))}
 
-					<Button className='w-full' type='submit'>
-						ОК
+					<Button
+						className='w-full'
+						type='submit'
+						disabled={isCreateContactPending}
+					>
+						{isCreateContactPending ? (
+							<>
+								<p className='text-[#FFD700]'>Секунду </p>
+								<BarLoader color='#FFD700' width={'90%'} />
+							</>
+						) : (
+							'ОК'
+						)}
 					</Button>
 				</form>
 			</Form>
