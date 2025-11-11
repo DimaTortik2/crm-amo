@@ -82,7 +82,7 @@ export default function FormPage() {
 	}
 
 	return (
-		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative font-custom pb-[0.4rem]'>
+		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative font-custom'>
 			<Bg
 				className='absolute bottom-0 left-0'
 				colors={['#4B0082', '#8A63D2', '#FFD700']}
@@ -91,7 +91,7 @@ export default function FormPage() {
 
 			<BackArrowLink
 				to={ROUTES.home}
-				className='absolute top-4 left-4 opacity-40'
+				className='absolute top-2 left-2 opacity-40'
 			/>
 
 			<Form {...form}>
