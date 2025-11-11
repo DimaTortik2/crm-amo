@@ -21,6 +21,7 @@ export function BackArrowLink({
 	const [hover, setHover] = useState(false);
 	return (
 		<Link
+			replace
 			href={to}
 			className={clsx(
 				'p-3 flex justify-center items-center rounded-full  ',

@@ -116,7 +116,9 @@ export default function Home() {
 							onClick={() => setPresentationSeen(true)}
 							asChild
 						>
-							<Link href={elProps.linkTo || ''}>{elProps.text}</Link>
+							<Link replace href={elProps.linkTo || ''}>
+								{elProps.text}
+							</Link>
 						</Button>
 					);
 			}
