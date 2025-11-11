@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ToastProvider } from './providers/toast.provider';
 import { QuerryProvider } from './providers/uerry.provider';
+import { ToastProvider } from './providers/toast.provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-			<body className={`${inter.className} dark`}>
+			<body
+				className={`${inter.className} dark overflow-y-hidden bg-[#100a19]`}
+			>
 				<QuerryProvider>
 					<ToastProvider>{children}</ToastProvider>
 				</QuerryProvider>

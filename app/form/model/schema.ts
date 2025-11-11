@@ -7,7 +7,7 @@ export const formSchema = z.object({
 		.refine(val => val.length === 0 || val.length > 2, {
 			message: 'Так мало?',
 		})
-		.refine(val => val.length <= 30, {
+		.refine(val => val.length <= 50, {
 			message: 'Разогнался',
 		})
 		.optional(),

@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { formSchema } from '../model/schema';
 import { ICreateContactAnswer } from './interfaces';
+import { formSchema } from '../model/schema';
 
 export const createContactService = {
 	createOne(
