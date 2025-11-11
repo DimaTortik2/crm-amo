@@ -2,7 +2,6 @@
 
 import Bg from '@/components/ui/bg/bg';
 import Link from 'next/link';
-import { ROUTES } from './config/routes';
 import { Button } from '@/components/ui/button';
 import { SplitText } from '@/components/ui/SplitText';
 import { GradientText } from '@/components/ui/GradientText';
@@ -94,7 +93,17 @@ export default function Home() {
 					return (
 						<Button
 							style={{
-								transition: clsx('opacity', `${elProps.duration}s`, 'ease'),
+								transition: clsx(
+									'opacity',
+									`${elProps.duration}s`,
+									'ease',
+									', transform',
+									'0.5s',
+									'ease',
+									', background',
+									'0.5s',
+									'ease'
+								),
 								opacity: presentationSeen
 									? 100
 									: visibleItems.includes(i)
