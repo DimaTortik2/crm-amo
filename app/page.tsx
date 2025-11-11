@@ -148,7 +148,7 @@ export default function Home() {
 				/>
 			)}
 
-			<div className='w-full h-full absolute z-1 flex flex-col p-5 items-center text-[#e8e8e8]'>
+			<div className='w-full h-full absolute z-1 flex flex-col p-5 items-center text-[#e8e8e8] pb-[4.5rem]'>
 				<SplitText
 					text='Для урока РиСБД'
 					className='text-5xl sm:text-[4rem] font-semibold text-center mt-5 font-custom'
