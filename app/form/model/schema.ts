@@ -4,23 +4,19 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 export const formSchema = z.object({
 	name: z
 		.string()
-		.refine(val => val.length === 0 || val.length > 2, {
-			message: 'Так мало?',
-		})
-		.refine(val => val.length <= 50, {
-			message: 'Разогнался',
-		})
-		.optional(),
+		.min(2, { message: 'Так мало?' })
+		.max(40, { message: 'Разогнался' }),
 	phone_number: z
 		.string()
-		.min(1, { message: 'Нада' })
-		.refine(isValidPhoneNumber, { message: 'Не верю' }),
-	email: z
-		.string()
-		.max(30, { message: 'Разогнался' })
-		.email('Не похоже на мыло')
+		.min(1, { message: 'Ну введи уже раз начал' })
+		.refine(isValidPhoneNumber, { message: 'Не верю' })
 		.or(z.literal(''))
 		.optional(),
+	email: z
+		.string()
+		.min(1, { message: 'Почту, пожалуйста' })
+		.max(30, { message: 'Разогнался' })
+		.email('Не похоже на мыло'),
 	company: z
 		.string()
 		.min(2, {

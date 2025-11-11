@@ -33,23 +33,23 @@ const fileldsData: {
 		value: 'company',
 		placeHolder: 'Компания',
 	},
+	{
+		label: 'ФИО',
+		value: 'name',
+		placeHolder: 'Стасик',
+	},
 
 	{
 		label: 'Телефон',
 		value: 'phone_number',
 		placeHolder: '+375',
-	},
-	{
-		label: 'ФИО',
-		value: 'name',
-		placeHolder: 'Стасик',
 		description: 'Необязательно',
 	},
+
 	{
 		label: 'Почта',
 		value: 'email',
 		placeHolder: 'Почта',
-		description: 'Необязательно',
 	},
 ];
 
@@ -82,7 +82,7 @@ export default function FormPage() {
 	}
 
 	return (
-		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative font-custom pb-[1rem]'>
+		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative font-custom pb-[0.4rem]'>
 			<Bg
 				className='absolute bottom-0 left-0'
 				colors={['#4B0082', '#8A63D2', '#FFD700']}

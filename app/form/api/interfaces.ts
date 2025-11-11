@@ -1,3 +1,11 @@
 export interface ICreateContactAnswer {
-  message: string
+	data: {
+		message: string;
+	};
+}
+
+export interface IAxiosError {
+	response: {
+		data: { detail: string | { msg: string }[] };
+	};
 }
