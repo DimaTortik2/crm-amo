@@ -89,7 +89,7 @@ export default function FormPage() {
 				speeds={[75, 150, 300]}
 			/>
 
-			<BackArrowLink to={ROUTES.home} className='absolute top-4 left-4' />
+			<BackArrowLink to={ROUTES.home} className='absolute top-4 left-4 opacity-40' />
 
 			<Form {...form}>
 				<form
