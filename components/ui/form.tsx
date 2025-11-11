@@ -77,14 +77,14 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   const id = React.useId()
 
   return (
-    <FormItemContext.Provider value={{ id }}>
-      <div
-        data-slot="form-item"
-        className={cn("grid gap-2", className)}
-        {...props}
-      />
-    </FormItemContext.Provider>
-  )
+		<FormItemContext.Provider value={{ id }}>
+			<div
+				data-slot='form-item'
+				className={cn('font-custom grid gap-2', className)}
+				{...props}
+			/>
+		</FormItemContext.Provider>
+	);
 }
 
 function FormLabel({
@@ -94,14 +94,17 @@ function FormLabel({
   const { error, formItemId } = useFormField()
 
   return (
-    <Label
-      data-slot="form-label"
-      data-error={!!error}
-      className={cn("data-[error=true]:text-destructive", className)}
-      htmlFor={formItemId}
-      {...props}
-    />
-  )
+		<Label
+			data-slot='form-label'
+			data-error={!!error}
+			className={cn(
+				'font-custom data-[error=true]:text-destructive',
+				className
+			)}
+			htmlFor={formItemId}
+			{...props}
+		/>
+	);
 }
 
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
@@ -126,13 +129,13 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   const { formDescriptionId } = useFormField()
 
   return (
-    <p
-      data-slot="form-description"
-      id={formDescriptionId}
-      className={cn("text-muted-foreground text-sm", className)}
-      {...props}
-    />
-  )
+		<p
+			data-slot='form-description'
+			id={formDescriptionId}
+			className={cn('font-custom text-muted-foreground text-sm', className)}
+			{...props}
+		/>
+	);
 }
 
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
@@ -144,15 +147,15 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   }
 
   return (
-    <p
-      data-slot="form-message"
-      id={formMessageId}
-      className={cn("text-destructive text-sm", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  )
+		<p
+			data-slot='form-message'
+			id={formMessageId}
+			className={cn('font-custom text-destructive text-sm', className)}
+			{...props}
+		>
+			{body}
+		</p>
+	);
 }
 
 export {

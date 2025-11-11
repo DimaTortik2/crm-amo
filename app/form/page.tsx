@@ -82,14 +82,14 @@ export default function FormPage() {
 	}
 
 	return (
-		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative'>
+		<div className='flex min-h-screen items-center justify-center bg-[#000000] relative font-custom'>
 			<Bg
 				className='absolute bottom-0 left-0'
 				colors={['#4B0082', '#8A63D2', '#FFD700']}
 				speeds={[75, 150, 300]}
 			/>
 
-			<BackArrowLink to={ROUTES.home} className='absolute' />
+			<BackArrowLink to={ROUTES.home} className='absolute top-4 left-4' />
 
 			<Form {...form}>
 				<form
@@ -125,7 +125,7 @@ export default function FormPage() {
 					>
 						{isCreateContactPending ? (
 							<>
-								<p className='text-[#FFD700]'>Секунду </p>
+								<p className='text-[#FFD700] font-custom'>Секунду </p>
 								<BarLoader color='#FFD700' width={'90%'} />
 							</>
 						) : (

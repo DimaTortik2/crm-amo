@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { QuerryProvider } from './providers/uerry.provider';
 import { ToastProvider } from './providers/toast.provider';
+import localFont from 'next/font/local';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,6 +12,17 @@ export const metadata: Metadata = {
 	title: 'Form',
 	description: 'Create something',
 };
+
+const myCustomFont = localFont({
+	src: [
+		{
+			path: './config/fonts/ofont.ru_Nunito.ttf',
+			weight: '400',
+			style: 'normal',
+		},
+	],
+	variable: '--font-my-custom',
+});
 
 export default function RootLayout({
 	children,
@@ -19,7 +32,7 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body
-				className={`${inter.className} dark overflow-y-hidden bg-[#100a19]`}
+				className={`${inter.className} ${myCustomFont.variable} dark overflow-y-hidden bg-[#100a19]`}
 			>
 				<QuerryProvider>
 					<ToastProvider>{children}</ToastProvider>
