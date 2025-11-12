@@ -89,53 +89,51 @@ export default function FormPage() {
 				speeds={[75, 150, 300]}
 			/>
 
-			<BackArrowLink
-				to={ROUTES.home}
-				className='absolute top-2 left-2 opacity-40'
-			/>
-
 			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className='space-y-8 bg-[#0a0a0ac9] p-10 backdrop-blur-lg rounded-3xl w-[95%] max-w-[400px] absolute z-1 border-2 border-[#e8e8e820]'
-				>
-					<h1 className='text-xl'>Добавление контакта :]</h1>
-
-					{fileldsData.map(data => (
-						<FormField
-							key={data.value}
-							control={form.control}
-							name={data.value}
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>{data.label}</FormLabel>
-									<FormControl>
-										<Input placeholder={data.placeHolder || ''} {...field} />
-									</FormControl>
-									{data.description && (
-										<FormDescription>{data.description}</FormDescription>
-									)}
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					))}
-
-					<Button
-						className='w-full'
-						type='submit'
-						disabled={isCreateContactPending}
+				<div className=' w-[95%] max-w-[400px] absolute z-1 flex flex-col items-start'>
+					<BackArrowLink to={ROUTES.home} className=' opacity-40' />
+					<form
+						onSubmit={form.handleSubmit(onSubmit)}
+						className='backdrop-blur-lg rounded-3xl p-10 pt-8 border-2 border-[#e8e8e820] bg-[#0a0a0ac9] w-full  space-y-8 '
 					>
-						{isCreateContactPending ? (
-							<>
-								<p className='text-[#FFD700] font-custom'>Секунду </p>
-								<BarLoader color='#FFD700' width={'90%'} />
-							</>
-						) : (
-							'ОК'
-						)}
-					</Button>
-				</form>
+						<h1 className='text-xl'>Добавление контакта :]</h1>
+
+						{fileldsData.map(data => (
+							<FormField
+								key={data.value}
+								control={form.control}
+								name={data.value}
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>{data.label}</FormLabel>
+										<FormControl>
+											<Input placeholder={data.placeHolder || ''} {...field} />
+										</FormControl>
+										{data.description && (
+											<FormDescription>{data.description}</FormDescription>
+										)}
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						))}
+
+						<Button
+							className='w-full'
+							type='submit'
+							disabled={isCreateContactPending}
+						>
+							{isCreateContactPending ? (
+								<>
+									<p className='text-[#FFD700] font-custom'>Секунду </p>
+									<BarLoader color='#FFD700' width={'90%'} />
+								</>
+							) : (
+								'ОК'
+							)}
+						</Button>
+					</form>
+				</div>
 			</Form>
 		</div>
 	);

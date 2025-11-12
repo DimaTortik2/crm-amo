@@ -24,15 +24,15 @@ export function BackArrowLink({
 			replace
 			href={to}
 			className={clsx(
-				'p-3 flex justify-center items-center rounded-full  ',
+				'p-3 flex justify-center items-center rounded-full ',
 				className
 			)}
+			style={{
+				gap: hover ? '0.35rem' : '0.25rem',
+				transition: 'all 0.25s ease',
+			}}
 			onMouseEnter={() => setHover(true)}
 			onMouseLeave={() => setHover(false)}
-			style={{
-				backgroundColor: hover ? hoveredBg : bg,
-				transition: 'background-color 600ms ease',
-			}}
 		>
 			<ArrowBackIosNewIcon
 				sx={{
@@ -40,6 +40,14 @@ export function BackArrowLink({
 					transition: 'color 0.5s ease-out',
 				}}
 			/>
+			<p
+				style={{
+					color: hover ? color : '#e8e8e8',
+					transition: 'color 0.5s ease-out',
+				}}
+			>
+				Назад
+			</p>
 		</Link>
 	);
 }
