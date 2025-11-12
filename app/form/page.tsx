@@ -82,7 +82,7 @@ export default function FormPage() {
 	}
 
 	return (
-		<div className='flex min-h-screen pt-5 sm:pt-0 items-start sm:items-center justify-center bg-[#000000] relative font-custom'>
+		<div className='flex min-h-screen pt-1 items-start sm:items-center justify-center bg-[#000000] relative font-custom'>
 			<Bg
 				className='absolute bottom-0 left-0'
 				colors={['#4B0082', '#8A63D2', '#FFD700']}
@@ -94,7 +94,7 @@ export default function FormPage() {
 					<BackArrowLink to={ROUTES.home} className=' opacity-40' />
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
-						className='backdrop-blur-lg rounded-3xl p-10 pt-8 border-2 border-[#e8e8e820] bg-[#0a0a0ac9] w-full  space-y-8'
+						className='backdrop-blur-lg rounded-3xl px-8 pb-7 pt-5 sm:px-10 sm:pb-10 sm:pt-8 border-2 border-[#e8e8e820] bg-[#0a0a0ac9] w-full space-y-6 sm:space-y-8'
 					>
 						<h1 className='text-xl'>Добавление контакта :]</h1>
 
@@ -105,13 +105,18 @@ export default function FormPage() {
 								name={data.value}
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>{data.label}</FormLabel>
+										<FormLabel>
+											{data.label}
+											{data.description && (
+												<FormDescription className='opacity-50'>
+													{data.description}
+												</FormDescription>
+											)}
+										</FormLabel>
 										<FormControl>
 											<Input placeholder={data.placeHolder || ''} {...field} />
 										</FormControl>
-										{data.description && (
-											<FormDescription>{data.description}</FormDescription>
-										)}
+
 										<FormMessage />
 									</FormItem>
 								)}
@@ -122,6 +127,9 @@ export default function FormPage() {
 							className='w-full'
 							type='submit'
 							disabled={isCreateContactPending}
+							style={{
+								marginTop: '2rem',
+							}}
 						>
 							{isCreateContactPending ? (
 								<>
