@@ -105,7 +105,7 @@ export default function FormPage() {
 					>
 						<h1 className='text-xl mx-8 sm:mx-10'>Добавление контакта :]</h1>
 
-						<div className='w-full h-[40vh] space-y-6 sm:space-y-8 px-8 sm:px-10 overflow-y-auto scrolling-container '>
+						<div className='w-full h-[50vh] space-y-6 sm:space-y-8 px-8 sm:px-10 overflow-y-auto scrolling-container '>
 							{fileldsData.map(data => (
 								<FormField
 									key={data.value}
