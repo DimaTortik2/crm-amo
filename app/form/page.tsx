@@ -29,14 +29,20 @@ const fileldsData: {
 	value: keyof FormValues;
 }[] = [
 	{
+		label: 'ФИО',
+		value: 'name',
+		placeHolder: 'Стасик',
+	},
+	{
 		label: 'Название компании',
 		value: 'company',
 		placeHolder: 'Компания',
 	},
+
 	{
-		label: 'ФИО',
-		value: 'name',
-		placeHolder: 'Стасик',
+		label: 'Почта',
+		value: 'email',
+		placeHolder: 'Почта',
 	},
 
 	{
@@ -45,11 +51,11 @@ const fileldsData: {
 		placeHolder: '+375',
 		description: 'Необязательно',
 	},
-
 	{
-		label: 'Почта',
-		value: 'email',
-		placeHolder: 'Почта',
+		label: 'Должность',
+		value: 'position',
+		placeHolder: 'Самый главный',
+		description: 'Необязательно',
 	},
 ];
 
@@ -61,6 +67,7 @@ export default function FormPage() {
 			company: '',
 			email: '',
 			phone_number: '',
+			position : '',
 		},
 	});
 
@@ -82,7 +89,7 @@ export default function FormPage() {
 	}
 
 	return (
-		<div className='flex min-h-screen pt-1 items-start sm:items-center justify-center bg-[#000000] relative font-custom'>
+		<div className='flex min-h-screen pt-1 items-start sm:items-center justify-center bg-[#000000] relative font-custom overflow-auto'>
 			<Bg
 				className='absolute bottom-0 left-0'
 				colors={['#4B0082', '#8A63D2', '#FFD700']}
@@ -94,52 +101,56 @@ export default function FormPage() {
 					<BackArrowLink to={ROUTES.home} className=' opacity-40' />
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
-						className='backdrop-blur-lg rounded-3xl px-8 pb-7 pt-5 sm:px-10 sm:pb-10 sm:pt-8 border-2 border-[#e8e8e820] bg-[#0a0a0ac9] w-full space-y-6 sm:space-y-8'
+						className='backdrop-blur-lg rounded-3xl  pb-7 sm:pb-10 pt-5 sm:pt-8 border-2 border-[#e8e8e820] bg-[#0a0a0ac9] w-full space-y-6 sm:space-y-8'
 					>
-						<h1 className='text-xl'>Добавление контакта :]</h1>
+						<h1 className='text-xl mx-8 sm:mx-10'>Добавление контакта :]</h1>
 
-						{fileldsData.map(data => (
-							<FormField
-								key={data.value}
-								control={form.control}
-								name={data.value}
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>
-											{data.label}
-											{data.description && (
-												<FormDescription className='opacity-50'>
-													{data.description}
-												</FormDescription>
-											)}
-										</FormLabel>
-										<FormControl>
-											<Input placeholder={data.placeHolder || ''} {...field} />
-										</FormControl>
+						<div className='w-full h-[40vh] space-y-6 sm:space-y-8 px-8 sm:px-10 overflow-y-auto scrolling-container '>
+							{fileldsData.map(data => (
+								<FormField
+									key={data.value}
+									control={form.control}
+									name={data.value}
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>
+												{data.label}
+												{data.description && (
+													<FormDescription className='opacity-50'>
+														{data.description}
+													</FormDescription>
+												)}
+											</FormLabel>
+											<FormControl>
+												<Input
+													placeholder={data.placeHolder || ''}
+													{...field}
+												/>
+											</FormControl>
 
-										<FormMessage />
-									</FormItem>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							))}
+						</div>
+
+						<div className='w-full px-8 sm:px-10'>
+							<Button
+								className='w-full'
+								type='submit'
+								disabled={isCreateContactPending}
+							>
+								{isCreateContactPending ? (
+									<>
+										<p className='text-[#FFD700] font-custom'>Секунду </p>
+										<BarLoader color='#FFD700' width={'90%'} />
+									</>
+								) : (
+									'ОК'
 								)}
-							/>
-						))}
-
-						<Button
-							className='w-full'
-							type='submit'
-							disabled={isCreateContactPending}
-							style={{
-								marginTop: '2rem',
-							}}
-						>
-							{isCreateContactPending ? (
-								<>
-									<p className='text-[#FFD700] font-custom'>Секунду </p>
-									<BarLoader color='#FFD700' width={'90%'} />
-								</>
-							) : (
-								'ОК'
-							)}
-						</Button>
+							</Button>
+						</div>
 					</form>
 				</div>
 			</Form>

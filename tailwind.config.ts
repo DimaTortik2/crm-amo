@@ -19,10 +19,9 @@ const config = {
 			},
 		},
 		extend: {
-			fontFamily:{
-				 custom: ['var(--font-my-custom)'],
-			}
-			,
+			fontFamily: {
+				custom: ['var(--font-my-custom)'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

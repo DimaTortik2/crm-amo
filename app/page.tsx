@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { SplitText } from '@/components/ui/SplitText';
 import { GradientText } from '@/components/ui/GradientText';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { presentationSeenAtom } from './store/atoms';
@@ -158,8 +158,12 @@ export default function Home() {
 					duration={0.6}
 					ease='power3.out'
 					splitType='chars'
-					from={presentationSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-					to={{ opacity: 1, y: 0 }}
+					from={useMemo(
+						() =>
+							presentationSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 },
+						[presentationSeen]
+					)}
+					to={useMemo(() => ({ opacity: 1, y: 0 }), [])}
 					threshold={0.1}
 					rootMargin='-100px'
 					textAlign='center'

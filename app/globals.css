@@ -71,6 +71,26 @@
 	}
 }
 
-.Toastify__toast-body {
-  font-family: var(--font-my-custom);
+.scrolling-container::-webkit-scrollbar {
+	width: 6px;
 }
+
+.scrolling-container::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.scrolling-container::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.05);
+	border-radius: 20px;
+}
+
+.scrolling-container::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+.scrolling-container {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.05) transparent;
+}
+
+

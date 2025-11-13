@@ -23,4 +23,12 @@ export const formSchema = z.object({
 			message: 'Чего так мало букав?',
 		})
 		.max(40, { message: 'Перестарался...' }),
+	position: z
+		.string()
+		.min(2, {
+			message: 'Чего так мало букав?',
+		})
+		.max(50, { message: 'Перестарался...' })
+		.or(z.literal(''))
+		.optional(),
 });
