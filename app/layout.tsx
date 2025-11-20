@@ -1,15 +1,10 @@
-import type { Metadata } from 'next';
+'use client'
 import './globals.css';
 import { QuerryProvider } from './providers/uerry.provider';
 import { ToastProvider } from './providers/toast.provider';
 import localFont from 'next/font/local';
 
 
-
-export const metadata: Metadata = {
-	title: 'Form',
-	description: 'Create something',
-};
 
 const myCustomFont = localFont({
 	src: [

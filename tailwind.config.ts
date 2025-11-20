@@ -22,8 +22,8 @@ const config = {
 			fontFamily: {
 				custom: ['var(--font-my-custom)'],
 			},
-			screens : {
-				'dv' : {'raw' : '(max-height: 700px)'}
+			screens: {
+				dv: { raw: '(min-width: 640px) and (max-height: 700px)' },
 			},
 			colors: {
 				border: 'hsl(var(--border))',
