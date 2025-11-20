@@ -27,6 +27,7 @@ const fileldsData: {
 	label: string;
 	placeHolder?: string;
 	value: keyof FormValues;
+	inputType?: 'number' | 'text';
 }[] = [
 	{
 		label: 'ФИО',
@@ -57,17 +58,32 @@ const fileldsData: {
 		placeHolder: 'Самый главный',
 		description: 'Необязательно',
 	},
+	{
+		label: 'Название сделки',
+		value: 'deal_name',
+		placeHolder: 'Выгодная сделка',
+		description: 'Необязательно',
+	},
+	{
+		label: 'Цена сделки',
+		value: 'price',
+		placeHolder: '0',
+		description: 'Необязательно',
+		inputType: 'number',
+	},
 ];
 
 export default function FormPage() {
-	const form = useForm<FormValues>({
+	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			name: '',
 			company: '',
 			email: '',
 			phone_number: '',
-			position : '',
+			position: '',
+			deal_name: '',
+			price: 0,
 		},
 	});
 
@@ -80,8 +96,13 @@ export default function FormPage() {
 
 		for (const key of keys) {
 			const value = values[key];
-			if (value !== '') {
-				filteredValues[key] = value;
+			if (
+				typeof value !== 'undefined' &&
+				value !== null &&
+				((typeof value === 'string' && value !== '') ||
+					(typeof value === 'number' && value !== 0))
+			) {
+				filteredValues[key] = value as any; // я точно уверен в типе
 			}
 		}
 
@@ -103,34 +124,39 @@ export default function FormPage() {
 						onSubmit={form.handleSubmit(onSubmit)}
 						className='backdrop-blur-lg rounded-3xl  pb-7 sm:pb-10 pt-5 sm:pt-8 border-2 border-[#e8e8e820] bg-[#0a0a0ac9] w-full space-y-6 sm:space-y-8'
 					>
-						<h1 className='text-xl mx-8 sm:mx-10'>Добавление контакта :]</h1>
+						<h1 className='text-xl mx-8 sm:mx-10'>Заяви о себе :]</h1>
 
-						<div className='w-full h-[50vh] space-y-6 sm:space-y-8 px-8 sm:px-10 overflow-y-auto scrolling-container '>
+						<div className='w-full h-[50vh] pb-5 space-y-6 sm:space-y-8 px-8 sm:px-10 overflow-y-auto scrolling-container '>
 							{fileldsData.map(data => (
 								<FormField
 									key={data.value}
 									control={form.control}
 									name={data.value}
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>
-												{data.label}
-												{data.description && (
-													<FormDescription className='opacity-50'>
-														{data.description}
-													</FormDescription>
-												)}
-											</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={data.placeHolder || ''}
-													{...field}
-												/>
-											</FormControl>
+									render={({ field }) => {
+										const { value, ...fieldProps } = field;
+										return (
+											<FormItem>
+												<FormLabel>
+													{data.label}
+													{data.description && (
+														<FormDescription className='opacity-50'>
+															{data.description}
+														</FormDescription>
+													)}
+												</FormLabel>
+												<FormControl>
+													<Input
+														placeholder={data.placeHolder || ''}
+														type={data.inputType ? data.inputType : 'text'}
+														value={value as string | number}
+														{...fieldProps}
+													/>
+												</FormControl>
 
-											<FormMessage />
-										</FormItem>
-									)}
+												<FormMessage />
+											</FormItem>
+										);
+									}}
 								/>
 							))}
 						</div>

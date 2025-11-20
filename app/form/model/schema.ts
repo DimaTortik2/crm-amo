@@ -8,7 +8,6 @@ export const formSchema = z.object({
 		.max(40, { message: 'Разогнался' }),
 	phone_number: z
 		.string()
-		.min(1, { message: 'Ну введи уже раз начал' })
 		.refine(isValidPhoneNumber, { message: 'Не верю' })
 		.or(z.literal(''))
 		.optional(),
@@ -31,4 +30,12 @@ export const formSchema = z.object({
 		.max(50, { message: 'Перестарался...' })
 		.or(z.literal(''))
 		.optional(),
+
+	deal_name: z
+		.string()
+		.max(30, { message: 'Разогнался' })
+		.or(z.literal(''))
+		.optional(),
+
+	price: z.coerce.number().nonnegative({ message: 'Слишком мало)' }).optional(),
 });

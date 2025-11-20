@@ -37,7 +37,6 @@ export default function Home() {
 		});
 
 		return () => {
-			console.log('clearing');
 			clearTimeout(animationEndTimout);
 			timeouts.forEach(timout => clearTimeout(timout));
 		};
@@ -153,7 +152,7 @@ export default function Home() {
 			<div className='w-full h-full absolute z-1 flex flex-col p-5 items-center text-[#e8e8e8] pb-[4.5rem]'>
 				<SplitText
 					text='Для урока РиСБД'
-					className='text-5xl sm:text-[4rem] font-semibold text-center mt-5 font-custom'
+					className='dv:text-2xl text-5xl sm:text-[4rem] font-semibold text-center mt-5 font-custom'
 					delay={100}
 					duration={0.6}
 					ease='power3.out'
